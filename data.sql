@@ -1,11 +1,11 @@
-create table country
+create table if not exists country
 (
     country_id text primary key,
     country_name text not null,
     continent text,
     population integer
 );
-create table country_covid_stats
+create table if not exists country_covid_stats
 (
     id integer primary key autoincrement,
     cases integer,
@@ -14,7 +14,7 @@ create table country_covid_stats
     country_id text not null,
     foreign key (country_id) references country(country_id)
 );
-create table covid_daily
+create table if not exists covid_daily
 (
     id integer primary key autoincrement,
     todayCases integer,
@@ -22,4 +22,13 @@ create table covid_daily
     todayRecovered integer,
     country_id text not null,
     foreign key (country_id) references country(country_id)
-)
+);
+create table if not exists covid_continent_summary as
+select
+    c.continent,
+    sum(cs.cases) as sum_cases_per_continent,
+    sum(cs.deaths) as sum_death_per_continent,
+    sum(cs.recovered) as sum_recovered_per_continent
+from country_covid_stats cs
+join country c on c.country_id = cs.country_id
+group by c.continent;
