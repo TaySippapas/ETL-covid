@@ -1,6 +1,6 @@
 from prefect import flow
 from covid_etl_oltp import fetch_covid_data, transform_data, load_data
-from covid_etl_olap import load_to_warehouse
+from covid_el_olap import load_to_warehouse
 @flow(name="COVID ETL Pipeline")
 def covid_etl_pipeline():
     data = fetch_covid_data()
