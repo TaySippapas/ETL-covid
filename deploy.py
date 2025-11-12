@@ -1,4 +1,3 @@
-from prefect import flow
 from datetime import timedelta
 from covid_flow import covid_etl_pipeline
 
