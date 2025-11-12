@@ -13,7 +13,6 @@ def fetch_covid_data():
 
 @task
 def transform_data(data):
-    df = pd.DataFrame(data)
     df = pd.json_normalize(data)
     # For Diamond Princess
     df.loc[df['country'] == 'Diamond Princess', 'countryInfo.iso2'] = 'DP'
